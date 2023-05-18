@@ -1,0 +1,24 @@
+import cv2
+
+
+shirt_image = cv2.imread('shirt_image.jpg')
+person_image = cv2.imread('person_image.jpg')
+
+
+x, y, w, h = 100, 200, 200, 250  # Replace with the actual bounding box coordinates
+
+
+resized_shirt = cv2.resize(shirt_image, (w, h))
+
+shirt_height, shirt_width, _ = resized_shirt.shape
+
+if shirt_height > h:
+    resized_shirt = resized_shirt[:h, :]
+if shirt_width > w:
+    resized_shirt = resized_shirt[:, :w]
+
+person_image[y:y+h, x:x+w] = resized_shirt
+
+cv2.imshow('Virtual Trial Room', person_image)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
